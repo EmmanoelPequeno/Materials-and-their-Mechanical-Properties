@@ -1,1 +1,2 @@
-# Redes-Neurais-e-Algoritmos-Gen-ticos
+# Redes-Neurais-e-Algoritmos-Gen-ticos 
+edição 
