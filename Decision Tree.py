@@ -3,7 +3,7 @@ import graphviz
 import pandas as pd
 
 # Read the CSV file into a pandas DataFrame
-df = pd.read_csv('Data.csv')
+df = pd.read_csv('../Conjunto de dados/Data.csv')
 
 # Merge the first three columns using string concatenation
 df['Material'] = df[['Std', 'Material', 'Heat treatment']].fillna('').agg(' '.join, axis=1)
