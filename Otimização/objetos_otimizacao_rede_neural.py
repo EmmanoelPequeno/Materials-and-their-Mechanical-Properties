@@ -118,7 +118,7 @@ class DataModule(L.LightningDataModule):
         
 class MLP(L.LightningModule):
     def __init__(
-        self, num_dados_de_entrada,neuronios_camadas, vieses, num_targets = 1
+        self, num_dados_de_entrada, neuronios_camadas, vieses, num_targets = 1
     ):
         super().__init__()
         self.camadas = nn.Sequential()
