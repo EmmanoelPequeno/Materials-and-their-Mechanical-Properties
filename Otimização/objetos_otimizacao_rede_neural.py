@@ -118,21 +118,20 @@ class DataModule(L.LightningDataModule):
         
 class MLP(L.LightningModule):
     def __init__(
-        self, num_dados_entrada, neuronios_c1, neuronios_c2,neuronios_c3, num_targets = 1
+        self, neuronios_camadas, bias, num_targets = 1
     ):
         super().__init__()
-
-        self.camadas = nn.Sequential(
-            nn.Linear(num_dados_entrada, neuronios_c1),
-            nn.ReLU(),
-            nn.Linear(neuronios_c1, neuronios_c2),
-            nn.ReLU(),
-            nn.Linear(neuronios_c2, neuronios_c3),
-            nn.ReLU(),
-            nn.Linear(neuronios_c3, num_targets),
-        )
-
-
+        self.camadas = nn.Sequential()
+        for i in range(len(neuronios_camadas)):
+            
+            if i == len(neuronios_camadas)-1:
+                nn.Linear(neuronios_camadas[i], num_targets, bias=bias[i])
+                
+            else:
+                self.camadas.add_module(nn.Linear(neuronios_camadas[i], neuronios_camadas[i+1]), bias=bias[i])
+                self.camadas.add_module(nn.ReLU())
+            
+            
         self.fun_perda = F.mse_loss
 
         self.perdas_treino = []
