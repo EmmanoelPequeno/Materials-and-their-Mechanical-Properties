@@ -123,19 +123,16 @@ class MLP(L.LightningModule):
         super().__init__()
         self.camadas = nn.Sequential()
         
-        for i in range(len(neuronios_camadas)-1):
-            
-            print(neuronios_camadas[i])
+        for i in range(len(neuronios_camadas) - 1):
             if i == 0:
-                self.camadas.add_module(f'linear{i}',nn.Linear(num_dados_de_entrada, neuronios_camadas[i]))
-                self.camadas.add_module(f'relu{i}',nn.ReLU())
-                
-            if i == len(neuronios_camadas)-1:
-                nn.Linear("output",neuronios_camadas[i], num_targets)
-                
+                self.camadas.add_module(f'linear{i}', nn.Linear(num_dados_de_entrada, neuronios_camadas[i]))
+                self.camadas.add_module(f'relu{i}', nn.ReLU())
             else:
-                self.camadas.add_module(f'linear{i}',nn.Linear(neuronios_camadas[i], neuronios_camadas[i+1]))
-                self.camadas.add_module(f'relu{i}',nn.ReLU())
+                self.camadas.add_module(f'linear{i}', nn.Linear(neuronios_camadas[i - 1], neuronios_camadas[i]))
+                self.camadas.add_module(f'relu{i}', nn.ReLU())
+        
+        # Adicionando a última camada Linear
+        self.camadas.add_module(f'linear{len(neuronios_camadas) - 1}', nn.Linear(neuronios_camadas[-2], num_targets, bias=vieses[-1]))
             
             
         self.fun_perda = F.mse_loss
