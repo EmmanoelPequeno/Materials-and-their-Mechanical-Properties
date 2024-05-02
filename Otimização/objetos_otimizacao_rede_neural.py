@@ -1,10 +1,7 @@
 
 import lightning as L
-import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import pickle
-import seaborn as sns
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -56,16 +53,30 @@ class DataModule(L.LightningDataModule):
         
         df_embaralhado = df.sample(frac=1,random_state = 0)
 
-        y = np.array(df_embaralhado[target[0]])
-        x = np.array(df_embaralhado.drop(columns=[target[0]]))
+        y_geral = np.array(df_embaralhado[target[0]])
+        x_geral = np.array(df_embaralhado.drop(columns=[target[0]]))
         n_divisoes = int(1/self.tamanho_teste)
-        ys= np.array_split(y, n_divisoes)
-        xs = np.array_split(x, n_divisoes)
-        y_teste = ys.pop(self.pedaco)
-        x_teste = xs.pop(self.pedaco)
+        ys= np.array_split(y_geral, n_divisoes)
+        xs = np.array_split(x_geral, n_divisoes)
         
-        y_treino =  np.concatenate(ys)
-        x_treino =  np.concatenate(xs)
+        y_teste_premium = ys.pop(0)
+        x_teste_premium = xs.pop(0)
+        self.y_teste_premium = y_teste_premium
+        self.x_teste_premium = x_teste_premium
+        
+
+        # Daqui pra baixo que 
+        
+        y_local =  np.concatenate(ys)
+        x_local =  np.concatenate(xs)
+        ys_local= np.array_split(y_local, n_divisoes)
+        xs_local = np.array_split(x_local, n_divisoes)
+        
+        y_teste = ys_local.pop(self.pedaco)
+        x_teste = xs_local.pop(self.pedaco)
+        
+        y_treino =  np.concatenate(ys_local)
+        x_treino =  np.concatenate(xs_local)
         
         X_treino = x_treino#.values
         y_treino = y_treino.reshape(-1,1)
