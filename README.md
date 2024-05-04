@@ -19,7 +19,9 @@
 Após uma análise das colunas e discussão do grupo, o atributo de Tração máxima (Su) foi escolhido como "target" para a rede neural, restando aos outros serem as "features". Após isso, as colunas foram convertidas para valores númericos e o dataset novo salvo no arquivo "Dataset.pickle"
 
 
-<b>Rede Neural.ipynb</b> 
+<b>Rede Neural.ipynb</b>: Dividimos o dataset dos dados escolhidos já tratados em teste e validação juntamente com uma ferramenta apropriada para encapsular esse pré-processamento. Uma rede neural do tipo MLP (Multilauyer perceptron) foi criada e treinada utilizando o treinador do pytorch lightning ajustando a rede criada com os dados encapsulados. Após isso foram feitas análises da curva de aprendizado da rede com o treino e validação e uma comparação dos valores reais do conjunto de dados com os preditos pela rede
+
+
 <b>Otimizando Rede.ipynb</b>
 
 </p>
