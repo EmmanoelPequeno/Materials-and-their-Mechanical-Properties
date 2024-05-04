@@ -22,6 +22,6 @@ Após uma análise das colunas e discussão do grupo, o atributo de Tração má
 <b>Rede Neural.ipynb</b>: Dividimos o dataset dos dados escolhidos já tratados em teste e validação juntamente com uma ferramenta apropriada para encapsular esse pré-processamento. Uma rede neural do tipo MLP (Multilauyer perceptron) foi criada e treinada utilizando o treinador do pytorch lightning ajustando a rede criada com os dados encapsulados. Após isso foram feitas análises da curva de aprendizado da rede com o treino e validação e uma comparação dos valores reais do conjunto de dados com os preditos pela rede
 
 
-<b>Otimizando Rede.ipynb</b>
+<b>Otimizando Rede.ipynb</b> Fizemos a otimização dos hiperparâmetros da rede neural utilizando o optuna. Para isso, desenvolvemos uma função para criação do modelo que em si já cria uma rede neural com os dados sugeridos pelo otimizador. Após isso, treinamos a função e cálculamos seu erro com base no erro quadrático médio (RMSE) desabilitando o cálculo de gradientes na rede. Foi criado um estudo com objetivo de minimizar a função objetivo, que em nosso caso é o RMSE.
 
 </p>
