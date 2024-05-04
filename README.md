@@ -8,12 +8,12 @@
 <b>Tratamento Dataset.ipynb</b>: Iniciamos o tratamento excluindo as colunas que não seriam úteis para nossa análise. Consideramos como colunas não úteis todas que não possuissem dados númericos ou que não tivessem potencial para serem convertidos em númericos, restando apenas a coluna de identificação do material como não numerica. Após esse tratamento as seguintes colunas restaram:
 
 <ul>
-  <li>Tração máxima (Su)</li>
-  <li>Limite de resistência (Sy)</li>
-  <li>Módulo elástico (E)</li>
-  <li>Módulo de cisalhamento (G)</li>
-  <li>Coeficiente de Poisson (mu)</li>
-  <li>Densidade (Ro)</li>
+  <li>Tração máxima (Su);</li>
+  <li>Limite de resistência (Sy);</li>
+  <li>Módulo elástico (E);</li>
+  <li>Módulo de cisalhamento (G);</li>
+  <li>Coeficiente de Poisson (mu);</li>
+  <li>Densidade (Ro).</li>
 </ul>
 
 Após uma análise das colunas e discussão do grupo, o atributo de Tração máxima (Su) foi escolhido como "target" para a rede neural, restando aos outros serem as "features". Após isso, as colunas foram convertidas para valores númericos e o dataset novo salvo no arquivo "Dataset.pickle"
