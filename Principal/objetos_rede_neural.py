@@ -29,8 +29,7 @@ class DataModule(L.LightningDataModule):
         tamanho_teste,
         semente_aleatoria,
         tamanho_lote=256,
-        num_trabalhadores=6,
-    
+        num_trabalhadores=6,     
     ):
         super().__init__()
 
