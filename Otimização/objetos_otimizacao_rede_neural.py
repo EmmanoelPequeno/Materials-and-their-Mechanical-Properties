@@ -1,6 +1,7 @@
 ###############################################################################
 #                       Importano Bibliotecas Necessárias                     #
 ###############################################################################
+
 import lightning as L
 import numpy as np
 import pandas as pd
