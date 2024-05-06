@@ -124,13 +124,6 @@ class DataModule(L.LightningDataModule):
             num_workers=self.num_trabalhadores,
         )
 
-    def val_dataloader(self):
-        return DataLoader(
-            TensorDataset(self.X_val, self.y_val),
-            batch_size=self.tamanho_lote,
-            num_workers=self.num_trabalhadores,
-        )
-
     def test_dataloader(self):
         return DataLoader(
             TensorDataset(self.X_teste, self.y_teste),
