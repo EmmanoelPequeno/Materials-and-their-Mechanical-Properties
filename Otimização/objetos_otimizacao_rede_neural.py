@@ -66,9 +66,9 @@ class DataModule(L.LightningDataModule):
         xs = np.array_split(x_geral, n_divisoes)
         
         y_teste_premium = ys.pop(0)
-        x_teste_premium = xs.pop(0)
+        X_teste_premium = xs.pop(0)
         self.y_teste_premium = y_teste_premium
-        self.x_teste_premium = x_teste_premium
+        self.X_teste_premium = X_teste_premium
                 
         y_local =  np.concatenate(ys)
         x_local =  np.concatenate(xs)
@@ -91,7 +91,6 @@ class DataModule(L.LightningDataModule):
         self.y_scaler.fit(y_treino)
 
         if stage == "fit":
-
             X_treino = self.x_scaler.transform(X_treino)
             y_treino = self.y_scaler.transform(y_treino)
 
@@ -107,6 +106,16 @@ class DataModule(L.LightningDataModule):
 
             self.X_teste = torch.tensor(X_teste, dtype=torch.float32)
             self.y_teste = torch.tensor(y_teste, dtype=torch.float32)
+            
+
+            X_teste_premium = X_teste_premium
+            y_teste_premium = y_teste_premium.reshape(-1,1)
+
+            X_teste_premium = self.x_scaler.transform(X_teste_premium)
+            y_teste_premium = self.y_scaler.transform(y_teste_premium)
+
+            self.X_teste_premium = torch.tensor(X_teste_premium, dtype=torch.float32)
+            self.y_teste_premium = torch.tensor(y_teste_premium, dtype=torch.float32)
 
     def train_dataloader(self):
         return DataLoader(
@@ -125,6 +134,13 @@ class DataModule(L.LightningDataModule):
     def test_dataloader(self):
         return DataLoader(
             TensorDataset(self.X_teste, self.y_teste),
+            batch_size=self.tamanho_lote,
+            num_workers=self.num_trabalhadores,
+        )
+
+    def test_premium_dataloader(self):
+        return DataLoader(
+            TensorDataset(self.X_teste_premium, self.y_teste_premium),
             batch_size=self.tamanho_lote,
             num_workers=self.num_trabalhadores,
         )
