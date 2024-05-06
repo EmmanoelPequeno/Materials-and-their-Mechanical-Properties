@@ -1,3 +1,6 @@
+###############################################################################
+#                       Importando Bibliotecas Necessárias                    #
+###############################################################################
 
 import lightning as L
 import numpy as np
@@ -13,6 +16,9 @@ from torch.nn import functional as F
 from torch.utils.data import DataLoader, TensorDataset
 
 
+###############################################################################
+#                                  DataModule                                 #
+###############################################################################
 
 class DataModule(L.LightningDataModule):
     def __init__(
@@ -22,7 +28,6 @@ class DataModule(L.LightningDataModule):
         pedaco,
         tamanho_lote=256,
         num_trabalhadores=6,
-   
          
     ):
         super().__init__()
@@ -32,6 +37,7 @@ class DataModule(L.LightningDataModule):
         self.tamanho_teste = tamanho_teste
         self.semente_aleatoria = semente_aleatoria
         self.pedaco = pedaco
+
 
     def setup(self, stage):
         """Ocorre após o `prepare_data`. Aqui devemos alterar o estado da classe
@@ -60,13 +66,10 @@ class DataModule(L.LightningDataModule):
         xs = np.array_split(x_geral, n_divisoes)
         
         y_teste_premium = ys.pop(0)
-        x_teste_premium = xs.pop(0)
+        X_teste_premium = xs.pop(0)
         self.y_teste_premium = y_teste_premium
-        self.x_teste_premium = x_teste_premium
-        
-
-        # Daqui pra baixo que 
-        
+        self.X_teste_premium = X_teste_premium
+                
         y_local =  np.concatenate(ys)
         x_local =  np.concatenate(xs)
         ys_local= np.array_split(y_local, n_divisoes)
@@ -88,7 +91,6 @@ class DataModule(L.LightningDataModule):
         self.y_scaler.fit(y_treino)
 
         if stage == "fit":
-
             X_treino = self.x_scaler.transform(X_treino)
             y_treino = self.y_scaler.transform(y_treino)
 
@@ -104,6 +106,16 @@ class DataModule(L.LightningDataModule):
 
             self.X_teste = torch.tensor(X_teste, dtype=torch.float32)
             self.y_teste = torch.tensor(y_teste, dtype=torch.float32)
+            
+
+            X_teste_premium = X_teste_premium
+            y_teste_premium = y_teste_premium.reshape(-1,1)
+
+            X_teste_premium = self.x_scaler.transform(X_teste_premium)
+            y_teste_premium = self.y_scaler.transform(y_teste_premium)
+
+            self.X_teste_premium = torch.tensor(X_teste_premium, dtype=torch.float32)
+            self.y_teste_premium = torch.tensor(y_teste_premium, dtype=torch.float32)
 
     def train_dataloader(self):
         return DataLoader(
@@ -125,7 +137,18 @@ class DataModule(L.LightningDataModule):
             batch_size=self.tamanho_lote,
             num_workers=self.num_trabalhadores,
         )
-        
+
+    def test_premium_dataloader(self):
+        return DataLoader(
+            TensorDataset(self.X_teste_premium, self.y_teste_premium),
+            batch_size=self.tamanho_lote,
+            num_workers=self.num_trabalhadores,
+        )
+
+
+###############################################################################
+#                                     MLP                                     #
+###############################################################################
         
 class MLP(L.LightningModule):
     def __init__(

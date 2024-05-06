@@ -1,3 +1,7 @@
+###############################################################################
+#                       Importando Bibliotecas Necessárias                    #
+###############################################################################
+
 import lightning as L
 import matplotlib.pyplot as plt
 import numpy as np
@@ -15,6 +19,9 @@ from torch.nn import functional as F
 from torch.utils.data import DataLoader, TensorDataset
 
 
+###############################################################################
+#                                  DataModule                                 #
+###############################################################################
 
 class DataModule(L.LightningDataModule):
     def __init__(
@@ -30,6 +37,7 @@ class DataModule(L.LightningDataModule):
         self.num_trabalhadores = num_trabalhadores
         self.tamanho_teste = tamanho_teste
         self.semente_aleatoria = semente_aleatoria
+
 
     def setup(self, stage):
         """Ocorre após o `prepare_data`. Aqui devemos alterar o estado da classe
@@ -122,11 +130,15 @@ class DataModule(L.LightningDataModule):
             batch_size=self.tamanho_lote,
             num_workers=self.num_trabalhadores,
         )
-        
+
+
+###############################################################################
+#                                     MLP                                     #
+###############################################################################
         
 class MLP(L.LightningModule):
     def __init__(
-        self, num_dados_entrada, neuronios_c1, neuronios_c2,neuronios_c3, num_targets = 1
+        self, num_dados_entrada, neuronios_c1, neuronios_c2, neuronios_c3, num_targets = 1
     ):
         super().__init__()
 
