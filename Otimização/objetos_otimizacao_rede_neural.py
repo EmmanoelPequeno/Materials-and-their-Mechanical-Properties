@@ -1,4 +1,6 @@
-
+###############################################################################
+#                       Importano Bibliotecas Necessárias                     #
+###############################################################################
 import lightning as L
 import numpy as np
 import pandas as pd
@@ -13,6 +15,9 @@ from torch.nn import functional as F
 from torch.utils.data import DataLoader, TensorDataset
 
 
+###############################################################################
+#                                  DataModule                                 #
+###############################################################################
 
 class DataModule(L.LightningDataModule):
     def __init__(
@@ -125,7 +130,11 @@ class DataModule(L.LightningDataModule):
             batch_size=self.tamanho_lote,
             num_workers=self.num_trabalhadores,
         )
-        
+
+
+###############################################################################
+#                                     MLP                                     #
+###############################################################################
         
 class MLP(L.LightningModule):
     def __init__(
