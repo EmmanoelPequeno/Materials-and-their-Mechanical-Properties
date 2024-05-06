@@ -1,5 +1,5 @@
 ###############################################################################
-#                       Importano Bibliotecas Necessárias                     #
+#                       Importando Bibliotecas Necessárias                    #
 ###############################################################################
 
 import lightning as L
@@ -28,7 +28,6 @@ class DataModule(L.LightningDataModule):
         pedaco,
         tamanho_lote=256,
         num_trabalhadores=6,
-   
          
     ):
         super().__init__()
@@ -38,6 +37,7 @@ class DataModule(L.LightningDataModule):
         self.tamanho_teste = tamanho_teste
         self.semente_aleatoria = semente_aleatoria
         self.pedaco = pedaco
+
 
     def setup(self, stage):
         """Ocorre após o `prepare_data`. Aqui devemos alterar o estado da classe
@@ -69,10 +69,7 @@ class DataModule(L.LightningDataModule):
         x_teste_premium = xs.pop(0)
         self.y_teste_premium = y_teste_premium
         self.x_teste_premium = x_teste_premium
-        
-
-        # Daqui pra baixo que 
-        
+                
         y_local =  np.concatenate(ys)
         x_local =  np.concatenate(xs)
         ys_local= np.array_split(y_local, n_divisoes)

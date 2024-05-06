@@ -1,5 +1,5 @@
 ###############################################################################
-#                       Importano Bibliotecas Necessárias                     #
+#                       Importando Bibliotecas Necessárias                    #
 ###############################################################################
 
 import lightning as L
@@ -30,8 +30,7 @@ class DataModule(L.LightningDataModule):
         semente_aleatoria,
         tamanho_lote=256,
         num_trabalhadores=6,
-   
-         
+    
     ):
         super().__init__()
 
@@ -39,6 +38,7 @@ class DataModule(L.LightningDataModule):
         self.num_trabalhadores = num_trabalhadores
         self.tamanho_teste = tamanho_teste
         self.semente_aleatoria = semente_aleatoria
+
 
     def setup(self, stage):
         """Ocorre após o `prepare_data`. Aqui devemos alterar o estado da classe
