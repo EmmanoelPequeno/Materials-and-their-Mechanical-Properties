@@ -29,6 +29,14 @@
 
 <p align = 'justify'><b>Conclusão:</b> Com esse estudo, pudemos aplicar os conhecimentos de sala de aula nessa primeira etapa da disciplina, com um foco maior nas redes neurais do tipo MLP e seus usos. Aplicamos a um dataset exemplo em treinamento, analisamos a medida de "Loss" ou perda do modelo com o decorrer das épocas e utilizamos como métrica principal para o desempenho do modelo, o RMSE. Ao final foi feita uma comparação dos valores previstos pela rede com os valores reais, obtendo dados que plotados em espalhamento tinham tendencia linear, o que nos informa um bom desenpenho na predição desses valores pela rede
 
+<p align = 'justify'><b>Referências</b> <br>
+[1] JIANG, L. A Visual Explanation of Gradient Descent Methods (Momentum, AdaGrad, RMSProp, Adam). Disponível em: <https://towardsdatascience.com/a-visual-explanation-of-gradient-descent-methods-momentum-adagrad-rmsprop-adam-f898b102325c>.
 
+[2] Materials and their Mechanical Properties. Disponível em: <https://www.kaggle.com/datasets/purushottamnawale/materials>. Acesso em: 7 maio. 2024.
+
+[3]
+
+‌
+  
 </p>
 
