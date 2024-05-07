@@ -131,13 +131,6 @@ class DataModule(L.LightningDataModule):
             num_workers=self.num_trabalhadores,
         )
 
-    def test_premium_dataloader(self):
-        return DataLoader(
-            TensorDataset(self.X_teste_premium, self.y_teste),
-            batch_size=self.tamanho_lote,
-            num_workers=self.num_trabalhadores,
-        )
-
 
 ###############################################################################
 #                                     MLP                                     #
@@ -201,5 +194,5 @@ class MLP(L.LightningModule):
         self.perdas_treino.clear()
 
     def configure_optimizers(self):
-        optimizer = optim.RMSprop(self.parameters(), lr=1e-3)
+        optimizer = optim.Adam(self.parameters(), lr=1e-3)
         return optimizer

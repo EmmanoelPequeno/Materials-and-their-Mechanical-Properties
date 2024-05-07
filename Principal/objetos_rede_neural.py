@@ -57,26 +57,34 @@ class DataModule(L.LightningDataModule):
         df = df.reindex(features + target, axis=1)
         df = df.dropna()
 
-        indices = df.index
-        indices_treino_val, indices_teste = train_test_split(
-            indices, test_size=self.tamanho_teste, random_state=self.semente_aleatoria
-        )
+        df_embaralhado = df.sample(frac=1,random_state = 0)
 
-        df_treino_val = df.loc[indices_treino_val]
-        df_teste = df.loc[indices_teste]
-
-        indices = df_treino_val.index
-        indices_treino, indices_val = train_test_split(
-            indices,
-            test_size=self.tamanho_teste,
-            random_state=self.semente_aleatoria,
-        )
-
-        df_treino = df.loc[indices_treino]
-        df_val = df.loc[indices_val]
-
-        X_treino = df_treino.reindex(features, axis=1).values
-        y_treino = df_treino.reindex(target, axis=1).values
+        y_geral = np.array(df_embaralhado[target[0]])
+        x_geral = np.array(df_embaralhado.drop(columns=[target[0]]))
+        n_divisoes = int(1/self.tamanho_teste)
+        ys= np.array_split(y_geral, n_divisoes)
+        xs = np.array_split(x_geral, n_divisoes)
+        
+        y_teste = ys.pop(0)
+        y_teste = y_teste.reshape(-1,1)
+        X_teste = xs.pop(0)
+        self.y_teste = y_teste
+        self.X_teste = X_teste
+                
+        y_local =  np.concatenate(ys)
+        x_local =  np.concatenate(xs)
+        ys_local= np.array_split(y_local, n_divisoes)
+        xs_local = np.array_split(x_local, n_divisoes)
+        
+        y_val = ys_local.pop(1)
+        y_val = y_val.reshape(-1,1)
+        X_val= xs_local.pop(1)
+        
+        y_treino =  np.concatenate(ys_local)
+        x_treino =  np.concatenate(xs_local)
+        
+        X_treino = x_treino#.values
+        y_treino = y_treino.reshape(-1,1)
 
         self.x_scaler = MaxAbsScaler()
         self.x_scaler.fit(X_treino)
@@ -85,8 +93,6 @@ class DataModule(L.LightningDataModule):
         self.y_scaler.fit(y_treino)
 
         if stage == "fit":
-            X_val = df_val.reindex(features, axis=1).values
-            y_val = df_val.reindex(target, axis=1).values
 
             X_treino = self.x_scaler.transform(X_treino)
             y_treino = self.y_scaler.transform(y_treino)
@@ -101,8 +107,7 @@ class DataModule(L.LightningDataModule):
             self.y_val = torch.tensor(y_val, dtype=torch.float32)
 
         if stage == "test":
-            X_teste = df_teste.reindex(features, axis=1).values
-            y_teste = df_teste.reindex(target, axis=1).values
+
 
             X_teste = self.x_scaler.transform(X_teste)
             y_teste = self.y_scaler.transform(y_teste)
