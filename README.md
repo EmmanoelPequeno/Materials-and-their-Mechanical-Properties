@@ -22,4 +22,8 @@
 
 <p align = 'justify'><b>Otimizando Rede.ipynb</b> Fizemos a otimização dos hiperparâmetros da rede neural utilizando o optuna. Para isso, desenvolvemos uma função para criação do modelo que em si já cria uma rede neural com os dados sugeridos pelo otimizador. Após isso, treinamos a função e cálculamos seu erro com base no erro quadrático médio (RMSE) desabilitando o cálculo de gradientes na rede. Foi criado um estudo com objetivo de minimizar a função objetivo, que em nosso caso é o RMSE.
 
+<p align = 'justify'><b>Conclusão:</b> Com esse estudo, pudemos aplicar os conhecimentos de sala de aula nessa primeira etapa da disciplina, com um foco maior nas redes neurais do tipo MLP e seus usos. Aplicamos a um dataset exemplo em treinamento, analisamos a medida de "Loss" ou perda do modelo com o decorrer das épocas e utilizamos como métrica principal para o desempenho do modelo, o RMSE. Ao final foi feita uma comparação dos valores previstos pela rede com os valores reais, obtendo dados que plotados em espalhamento tinham tendencia linear, o que nos informa um bom desenpenho na predição desses valores pela rede
+
+
 </p>
+
