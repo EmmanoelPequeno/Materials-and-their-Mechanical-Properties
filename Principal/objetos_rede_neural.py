@@ -111,6 +111,10 @@ class DataModule(L.LightningDataModule):
             self.y_teste = torch.tensor(y_teste, dtype=torch.float32)
 
     def train_dataloader(self):
+        """Responsável por retornar um DataLoader contendo os dados de treinamento 
+        preparados para o treinamento, para isso, precisamos específicar o tamanho 
+        do lote e o número de trabalhadores direcionados para essa atividade"""
+
         return DataLoader(
             TensorDataset(self.X_treino, self.y_treino),
             batch_size=self.tamanho_lote,
@@ -118,6 +122,10 @@ class DataModule(L.LightningDataModule):
         )
 
     def val_dataloader(self):
+        """Responsável por retonrar um DataLoader contendo os dados de validação
+        que serão utilizados na etapa de validação do modelo, precisamos específicar
+        o tamanho do lote e o número de trabalhadores direcionados para essa atividade"""
+
         return DataLoader(
             TensorDataset(self.X_val, self.y_val),
             batch_size=self.tamanho_lote,
@@ -125,6 +133,10 @@ class DataModule(L.LightningDataModule):
         )
 
     def test_dataloader(self):
+        """Responsável por retonrar um DataLoader contendo os dados de teste
+        que serão utilizados na etapa de teste do modelo, precisamos específicar
+        o tamanho do lote e o número de trabalhadores direcionados para essa atividade"""
+
         return DataLoader(
             TensorDataset(self.X_teste, self.y_teste),
             batch_size=self.tamanho_lote,
