@@ -224,5 +224,5 @@ class MLP(L.LightningModule):
         self.perdas_val.clear()
 
     def configure_optimizers(self):
-        optimizer = optim.RMSprop(self.parameters(), lr=1e-3)
+        optimizer = optim.Adam(self.parameters(), lr=1e-3)
         return optimizer
