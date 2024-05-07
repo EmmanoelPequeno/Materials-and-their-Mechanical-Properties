@@ -42,6 +42,12 @@
 
 [6] Cassar, D. R. 11 - Otimização de hiperparâmetros. Notebook Jupyter
 
+[7] WIKIPEDIA CONTRIBUTORS. Ultimate tensile strength. Disponível em: <https://en.wikipedia.org/wiki/Ultimate_tensile_strength>.
+
+‌[8] LEO, C. The Math behind Adam Optimizer. Disponível em: <https://towardsdatascience.com/the-math-behind-adam-optimizer-c41407efe59b>.
+
+‌
+
 ‌
   
 </p>
