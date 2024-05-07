@@ -34,7 +34,13 @@
 
 [2] Materials and their Mechanical Properties. Disponível em: <https://www.kaggle.com/datasets/purushottamnawale/materials>. Acesso em: 7 maio. 2024.
 
-[3]
+[3] Cassar, D. R. ATP-303 NN 5.2 - Notebook PyTorch.
+
+[4] Cassar, D. R. ATP-303 NN 5.3 - PyTorch Lightning
+
+[5] Cassar, D. R. ATP-303 NN 4.2 - Notebook MLP
+
+[6] Cassar, D. R. 11 - Otimização de hiperparâmetros. Notebook Jupyter
 
 ‌
   
