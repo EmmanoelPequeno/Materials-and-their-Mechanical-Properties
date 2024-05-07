@@ -133,7 +133,7 @@ class DataModule(L.LightningDataModule):
 
     def test_premium_dataloader(self):
         return DataLoader(
-            TensorDataset(self.X_teste_premium, self.y_teste_premium),
+            TensorDataset(self.X_teste_premium, self.y_teste),
             batch_size=self.tamanho_lote,
             num_workers=self.num_trabalhadores,
         )
@@ -150,16 +150,16 @@ class MLP(L.LightningModule):
         super().__init__()
         self.camadas = nn.Sequential()
         
-        for i in range(len(neuronios_camadas) - 1):
+        for i in range(len(neuronios_camadas)):
             if i == 0:
-                self.camadas.add_module(f'linear{i}', nn.Linear(num_dados_de_entrada, neuronios_camadas[i]))
+                self.camadas.add_module(f'linear{i}', nn.Linear(num_dados_de_entrada, neuronios_camadas[i],bias=vieses[i]))
                 self.camadas.add_module(f'relu{i}', nn.ReLU())
             else:
-                self.camadas.add_module(f'linear{i}', nn.Linear(neuronios_camadas[i - 1], neuronios_camadas[i]))
+                self.camadas.add_module(f'linear{i}', nn.Linear(neuronios_camadas[i - 1], neuronios_camadas[i],bias=vieses[i]))
                 self.camadas.add_module(f'relu{i}', nn.ReLU())
         
         # Adicionando a última camada Linear
-        self.camadas.add_module(f'linear{len(neuronios_camadas) - 1}', nn.Linear(neuronios_camadas[-2], num_targets, bias=vieses[-1]))
+        self.camadas.add_module(f'linear out', nn.Linear(neuronios_camadas[-1], num_targets, bias=vieses[-1]))
             
             
         self.fun_perda = F.mse_loss
@@ -201,5 +201,5 @@ class MLP(L.LightningModule):
         self.perdas_treino.clear()
 
     def configure_optimizers(self):
-        optimizer = optim.Adam(self.parameters(), lr=1e-3)
+        optimizer = optim.RMSprop(self.parameters(), lr=1e-3)
         return optimizer
