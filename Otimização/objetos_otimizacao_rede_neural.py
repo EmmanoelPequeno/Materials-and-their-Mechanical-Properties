@@ -26,7 +26,7 @@ class DataModule(L.LightningDataModule):
         tamanho_teste,
         semente_aleatoria,
         pedaco,
-        tamanho_lote=256,
+        tamanho_lote=1,
         num_trabalhadores=6,
          
     ):
@@ -138,7 +138,7 @@ class DataModule(L.LightningDataModule):
         
 class MLP(L.LightningModule):
     def __init__(
-        self, num_dados_de_entrada, neuronios_camadas, vieses, num_targets = 1
+        self, num_dados_de_entrada, neuronios_camadas, vieses,taxa_de_aprendizado, num_targets = 1
     ):
         super().__init__()
         self.camadas = nn.Sequential()
@@ -159,7 +159,7 @@ class MLP(L.LightningModule):
 
         self.perdas_treino = []
         self.perdas_val = []
-
+        self.taxa_de_aprendizado = taxa_de_aprendizado
         self.curva_aprendizado_treino = []
         self.curva_aprendizado_val = []
 
@@ -194,5 +194,5 @@ class MLP(L.LightningModule):
         self.perdas_treino.clear()
 
     def configure_optimizers(self):
-        optimizer = optim.Adam(self.parameters(), lr=1e-3)
+        optimizer = optim.Adam(self.parameters(), lr=self.taxa_de_aprendizado)
         return optimizer
